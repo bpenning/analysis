@@ -52,7 +52,7 @@ def write_submission_script(jobname, args):
     for line in f1:
         line=line.replace('JOBNAME', jobname)
         line=line.replace('INPUTFILE', args.file)
-        line=line.replace('DESTINATION', args.out_dir+'/')
+        line=line.replace('DESTINATION', args.out_dir+'/'+str(jobname)+'/')
         f2.write(line)
     f1.close()
     f2.close()
@@ -69,13 +69,18 @@ def check_and_prep():
     if not os.path.exists(args.out_dir):
         print 'Cannot find dir: '+args.out_dir
         sys.exit(0)
-    #set name for global variable
+        #set name for global variable
     ntpath.basename("a/b/c")
     head, tail = ntpath.split(args.file)
     global jobname
     jobname = tail.replace('.root','')
     jobname = jobname.replace('Tutorial','bp')
-        
+    jobname = jobname.replace('_mctruth','')
+   #create output directory
+#    if not os.path.exists(args.out_dir+'/logs'):
+#        os.makedirs(args.out_dir+'/logs')
+    if not os.path.exists(args.out_dir+'/'+str(jobname)+'/'):
+        os.makedirs(args.out_dir+'/'+str(jobname)+'/')
 
 def main(args):
     check_and_prep()

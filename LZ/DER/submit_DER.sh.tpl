@@ -13,7 +13,7 @@
 #Maximum walltime allowed for the job
 #Format: dd-hh:mm:ss, hh:mm:ss, mm:ss or mm
 #Default: '2:00:00'
-#SBATCH --time=6:00:00
+#SBATCH --time=2:00:00
 #################
 #Choose a partition
 #Options for Cori: 'debug' (runtime<30m, quick start), 'regular' (max runtime of 2-3days, long wait queue)
@@ -26,10 +26,10 @@
 #SBATCH --job-name=JOBNAME
 #################  
 #File for job output. Append the job ID with %j to make it unique
-#SBATCH --output=/global/u2/p/penning/bac/from_cvfms/batch_output/171229_lz_mdc1_calib_Co57-1/logs/slurm_job-%j-%3a.log
+#SBATCH --output=DESTINATION/JOBNAME.log
 #################
 #File for job errors 
-#SBATCH --error=/global/u2/p/penning/bac/from_cvfms/batch_output/171229_lz_mdc1_calib_Co57-1/logs/slurm_job-%j-%3a.log
+#SBATCH --error=DESTINATION/JOBNAME.err
 #################
 #NERSC repository
 #SBATCH --account=lz
@@ -57,16 +57,17 @@
 # meantime
 (sleep 1200; top ibn1 )&
 
-echo "Modules are:"
-module load qt/5.5.0
-module list
+#echo "Modules are:"
+#module load qt/5.5.0
+#module list
 
 date
 
 export input_file=INPUTFILE
 export destination=DESTINATION
-source /cvmfs/lz.opensciencegrid.org/BACCARAT/release-2.4.0/setup.sh
-
+source /cvmfs/lz.opensciencegrid.org/BACCARAT/release-2.6.0/setup.sh
+pwd
+ls -alrth
 cd /cvmfs/lz.opensciencegrid.org/DER/release-4.4.0/
 ./DER --UserCheck false --outDir $destination $input_file
 cd -

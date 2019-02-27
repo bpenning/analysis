@@ -11,9 +11,9 @@ source /cvmfs/lz.opensciencegrid.org/Physics/latest/Physics/setup.sh
 ```
 
 
-### Example how to run single example
+### Running manually
 
-To run one example by hand please see:
+Example how to an example by hand:
 
 
 ```
@@ -30,7 +30,10 @@ lzap /global/project/projectdirs/lz/releases/physics/latest/ProductionSteeringFi
 ```
 
 
-## Running on slurm
+## Submitting jobs via SLURM
+
+
+Example to submit calibration macro using latest release on PDFS
 
 
 ```

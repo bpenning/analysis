@@ -6,16 +6,14 @@ Description how to run all BACCARAT steps on `PDFS` and hopefully also `CORI`
 
 Make sure to have a physics environment sources
 
-````
+```
 source /cvmfs/lz.opensciencegrid.org/Physics/latest/Physics/setup.sh
 ```
-
 
 
 ### Example how to run single example
 
 To run one example by hand please see:
-
 
 
 ```

@@ -86,7 +86,7 @@ def main(args):
     job_script=jobname+'.sh'
     write_submission_script(jobname, args)
     submit_jobs(job_script)
-    os.remove(job_script)
+#    os.remove(job_script)
     
 
 if __name__ == "__main__":

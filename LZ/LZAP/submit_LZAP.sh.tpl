@@ -63,13 +63,13 @@
 
 date
 
-#source `/cvmfs/lz.opensciencegrid.org/Physics/latest/Physics/setup.sh`
+source `/cvmfs/lz.opensciencegrid.org/Physics/latest/Physics/setup.sh`
 source /cvmfs/lz.opensciencegrid.org/Physics/release-3.13.8/Physics/setup.sh
+source /cvmfs/lz.opensciencegrid.org/BACCARAT/latest/x86_64-slc6-gcc48-opt/setup.sh
 export LZAP_INPUT_FILES=INPUTFILE
 export LZAP_OUTPUT_FILE=OUTPUTFILE
 echo $LZAP_INPUT_FILES
 echo $LZAP_OUTPUT_FILE
-source /cvmfs/lz.opensciencegrid.org/Physics/release-3.13.8/Physics/setup.sh
 lzap /global/project/projectdirs/lz/releases/physics/latest/ProductionSteeringFiles/RunLZapMDC2TimeIntervals.py
 echo 'done'
 ls -alrth

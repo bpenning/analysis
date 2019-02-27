@@ -65,9 +65,11 @@ date
 
 export input_file=INPUTFILE
 export destination=DESTINATION
-source /cvmfs/lz.opensciencegrid.org/BACCARAT/release-2.6.0/setup.sh
+#source /cvmfs/lz.opensciencegrid.org/BACCARAT/release-2.6.0/setup.sh
+source  /cvmfs/lz.opensciencegrid.org/DER/latest/x86_64-slc6-gcc48-opt/setup.sh
 pwd
 ls -alrth
-cd /cvmfs/lz.opensciencegrid.org/DER/release-4.4.0/
-./DER --UserCheck false --outDir $destination $input_file
-cd -
+#cd /cvmfs/lz.opensciencegrid.org/DER/release-4.4.0/
+DER --source $input_file --outDir $destination
+#./DER --UserCheck false --outDir $destination $input_file
+#cd -

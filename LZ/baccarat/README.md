@@ -1,4 +1,4 @@
-# Project Title
+# BACCARAT submission
 
 Description how to run all BACCARAT steps on `PDFS` and hopefully also `CORI`
 

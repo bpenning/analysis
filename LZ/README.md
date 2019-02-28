@@ -49,3 +49,12 @@ Execute this command in output of BACCARAT. Make sure 'DER' directory exists
 for f in raw/job_*/*mctruth.root; do echo ./submit_DER.py -o DER/ -f $f; done
 
 ```
+
+
+### And finally LZAP
+
+Execute this command in output of DER. Make sure 'LZAP' directory exists
+
+```
+for f in DER/*/*raw.root; do echo ./submit_LZAP.py -o LZAP/ -f $f; done
+```

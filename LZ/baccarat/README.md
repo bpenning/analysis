@@ -44,3 +44,8 @@ Example to submit calibration macro using latest release on PDFS
 
 ### Now pipping through DER
 
+Execute this command in output of BACCARAT. Make sure 'DER' directory exists
+```
+for f in raw/job_*/*mctruth.root; do echo ./submit_DER.py -o DER/ -f $f; done
+
+```

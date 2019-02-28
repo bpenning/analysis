@@ -46,9 +46,11 @@ Example to submit calibration macro using latest release on PDFS
 
 Execute this command in output of BACCARAT. Make sure 'DER' directory exists
 ```
-for f in raw/job_*/*mctruth.root; do echo ./submit_DER.py -o DER/ -f $f; done
+for f in $1.raw/job_*/*mctruth.root; do echo ./submit_DER.py -o $1/DER/ -f $f; done
 
 ```
+
+`$1' stands for target directory in a smalls script
 
 
 ### And finally LZAP
@@ -56,5 +58,5 @@ for f in raw/job_*/*mctruth.root; do echo ./submit_DER.py -o DER/ -f $f; done
 Execute this command in output of DER. Make sure 'LZAP' directory exists
 
 ```
-for f in DER/*/*raw.root; do echo ./submit_LZAP.py -o LZAP/ -f $f; done
+for f in $1/DER/*/*raw.root; do echo ./submit_LZAP.py -o $1/LZAP/ -f $f; done
 ```

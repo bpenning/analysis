@@ -1,1 +1,3 @@
-for f in raw/job_*/*mctruth.root; do echo ./submit_DER.py -o DER/ -f $f; done
+mkdir $1/DER
+for f in $/raw/job_*/*mctruth.root; do echo ./submit_DER.py -o $1/DER/ -f $f; done
+

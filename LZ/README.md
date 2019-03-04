@@ -1,4 +1,4 @@
-# BACCARAT submission
+>># BACCARAT submission
 
 Description how to run all BACCARAT steps on `PDFS` and hopefully also `CORI`
 
@@ -58,5 +58,6 @@ for f in $1.raw/job_*/*mctruth.root; do echo ./submit_DER.py -o $1/DER/ -f $f; d
 Execute this command in output of DER. Make sure 'LZAP' directory exists
 
 ```
-for f in $1/DER/*/*raw.root; do echo ./submit_LZAP.py -o $1/LZAP/ -f $f; done
+mkdir $1/DER
+for f in $/raw/job_*/*mctruth.root; do echo ./submit_DER.py -o $1/DER/ -f $f; done
 ```

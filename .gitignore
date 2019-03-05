@@ -1,0 +1,6 @@
+*.log
+rqlib/
+*_C.so
+*rdict.pcm
+*C.d
+*.*~

@@ -60,7 +60,12 @@ def write_submission_script(jobname, args):
 def check_and_prep():
     #use absolute paths
     args.file=os.path.abspath(args.file)
+    #    create  dir
+    if not os.path.isdir(args.out_dir):   os.mkdir(args.out_dir)
     args.out_dir=os.path.abspath(args.out_dir)
+    #    create  dir
+#    args.out_dir=args.out_dir+'/'+os.path.basename(os.path.dirname(os.path.normpath(args.file)))+'/'
+#    if not os.path.isdir(args.out_dir):   os.mkdir(args.out_dir)
 
     #exit if file/dir not found
     if not os.path.exists(args.file):
@@ -74,8 +79,8 @@ def check_and_prep():
     head, tail = ntpath.split(args.file)
     global jobname
     jobname = tail.replace('.root','')
-    jobname = jobname.replace('Tutorial','bp')
     jobname = jobname.replace('_mctruth','')
+    jobname=jobname.rsplit('_',1)[0]+os.path.basename(os.path.dirname(os.path.normpath(args.file)))
    #create output directory
 #    if not os.path.exists(args.out_dir+'/logs'):
 #        os.makedirs(args.out_dir+'/logs')

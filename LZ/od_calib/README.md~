@@ -1,0 +1,11 @@
+Compatible with LZAP 3.10.0
+
+These macros aim to develop the S2 and SS-MS scatter selection criteria for both high for MDC2 data.
+
+The data files used are listed in the .list files. The corresponding plots are contained in the .root files by the same name.
+
+Steps to run:
+./configure.py --force /path/sampleDataFile.root (only have to do once)
+./macro.py MyProcessor.C fileList.list (for optional arguements, ./macro.py -h)
+
+Results of this study can be found here: https://docs.google.com/presentation/d/1j8KF4adJYf8x3l3kR4a-q_7m-aenNK8_v7x7xoBM_p8/edit?usp=sharing

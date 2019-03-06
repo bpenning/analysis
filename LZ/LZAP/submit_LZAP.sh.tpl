@@ -26,10 +26,10 @@
 #SBATCH --job-name=JOBNAME
 #################  
 #File for job output. Append the job ID with %j to make it unique
-#SBATCH --output=DESTINATION/JOBNAME.log
+#SBATCH --output=DESTINATION/job.log
 #################
 #File for job errors 
-#SBATCH --error=DESTINATION/JOBNAME.err
+#SBATCH --error=DESTINATION/job.err
 #################
 #NERSC repository
 #SBATCH --account=lz
@@ -63,7 +63,7 @@
 
 date
 
-source /cvmfs/lz.opensciencegrid.org/Physics/release-3.13.8/Physics/setup.sh
+source /cvmfs/lz.opensciencegrid.org/Physics/release-3.13.9/Physics/setup.sh
 source /cvmfs/lz.opensciencegrid.org/BACCARAT/latest/x86_64-slc6-gcc48-opt/setup.sh
 export LZAP_INPUT_FILES=INPUTFILE
 export LZAP_OUTPUT_FILE=OUTPUTFILE

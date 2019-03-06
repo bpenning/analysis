@@ -106,6 +106,12 @@ void od_calib::SlaveBegin(TTree * /*tree*/)
 
   h1_rate = new TH1F("h1_rate", "; rate [Hz]", 10,0,10);
   fOutput->Add(h1_rate);
+
+  //bkbl
+
+  h2_all_subS2maxS2ratio_h2w = new TH2F("h2_all_subS2maxS2ratio_h2w", "; subS2 area / maxS2 area; h2w [phd/ns/ns]", 500, 5e-5, 1.5, 500, 1e-5, 10);
+  LoggifyXY(h2_all_subS2maxS2ratio_h2w);
+  fOutput->Add(h2_all_subS2maxS2ratio_h2w);
   
   h1_tpcLG_nPulses=new TH1F("h1_tpcLG_nPulses", "h1_tpcLG_nPulses", 50, 0, 50);
   fOutput->Add(h1_tpcLG_nPulses);
@@ -337,6 +343,10 @@ Bool_t od_calib::Process(Long64_t entry)
 
 
 
+  //try stuff
+  if (e.tpc.maxS2area != 0) {
+    h2_all_subS2maxS2ratio_h2w->Fill(e.tpc.subS2pulses[0].first/e.tpc.maxS2area, e.tpc.height2length[e.tpc.subS2pulses[0].second]);
+  }
 
 
   //other variables

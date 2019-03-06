@@ -46,6 +46,8 @@ class od_calib : public TSelector {
   TH1F* h1_all_s1_s2=0;
   TH1F* h1_rate=0;
 
+  TH2F* h2_all_subS2maxS2ratio_h2w=0;
+
   TH1F* h1_tpcLG_nPulses=0;
   TH1F* h1_tpcLG_pulseStartTime=0;
   TH1F* h1_tpcLG_pulseEndTime=0;

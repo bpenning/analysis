@@ -64,5 +64,5 @@
 date
 ls
 source /cvmfs/lz.opensciencegrid.org/Physics/latest/Physics/setup.sh
-./macro.py -n 10000 -m 10 --useProof od_calib.C filelists/AmLi_1336.list
+./macro.py -n NEVENTS -m 10 --useProof od_calib.C INPUTFILE
 ls

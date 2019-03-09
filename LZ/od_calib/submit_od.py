@@ -24,6 +24,7 @@ def process_arguments():
     
     parser = ArgumentParser(description=__doc__, formatter_class=ArgumentDefaultsHelpFormatter)
     parser.add_argument("-f", "--file", default=None,  required=True, help="Set the input file")
+    parser.add_argument("-n", "--nevents", default=None,  required=True, help="Set number of events")
     args = parser.parse_args()
     return args
 
@@ -46,8 +47,9 @@ def write_submission_script(jobname, args):
     f2 = open(jobname+'.sh', 'w')
     for line in f1:
         line=line.replace('JOBNAME', jobname)
-        line=line.replace('INPUTFILE', args.file)
+        line=line.replace('INPUTFILE', os.path.abspath(args.file))
         line=line.replace('DESTINATION', 'out/logs')
+        line=line.replace('NEVENTS', args.nevents)
         f2.write(line)
     f1.close()
     f2.close()

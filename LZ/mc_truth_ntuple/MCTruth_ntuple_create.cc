@@ -151,7 +151,7 @@ int main(int argc, char *arg[]){
     for (int j=0;j<nvertex;j++){
       event_energy += event->vertices[j].fEnergyDep_keV;
       cout<<" Processing "<<j<<" "<<endl;
-      if (VolumeName[0].compare(event->vertices[j].sVolumeName)==0)
+      if (VolumeName[0].compare(event->vertices[j].sVolumeName)==0)  //check if sParentVolumeName instead
 	std::cout<<"compare"<<endl;
       // 	ntVertexLXeSkin->Fill(event->vertices[j].fPosition_mm.X(),event->vertices[j].fPosition_mm.Y(),event->vertices[j].fPosition_mm.Z(),event->vertices[j].fEnergyDep_keV,event->vertices[j].fTime_ns,event->vertices[j].iS1Quanta,event->vertices[j].iS2Quanta);
      cout<<"here2"<<endl;

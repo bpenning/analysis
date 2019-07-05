@@ -148,13 +148,13 @@ int main(int argc, char *arg[]){
 
 
     int nvertex = event->vertices.size();
+    //for (int j=0;j<nvertex;j++){
     for (int j=0;j<nvertex;j++){
       event_energy += event->vertices[j].fEnergyDep_keV;
-      cout<<" Processing "<<j<<" "<<endl;
-      if (VolumeName[0].compare(event->vertices[j].sVolumeName)==0)
-	std::cout<<"compare"<<endl;
+      //      cout<<" Processing "<<j<<" blub "<<event->vertices[j+1].sVolumeName<<endl; //without optical this stuff doesn't seem to work
+      
+      // if (VolumeName[0].compare(event->vertices[j].sVolumeName)==0)
       // 	ntVertexLXeSkin->Fill(event->vertices[j].fPosition_mm.X(),event->vertices[j].fPosition_mm.Y(),event->vertices[j].fPosition_mm.Z(),event->vertices[j].fEnergyDep_keV,event->vertices[j].fTime_ns,event->vertices[j].iS1Quanta,event->vertices[j].iS2Quanta);
-     cout<<"here2"<<endl;
       // if (VolumeName[1].compare(event->vertices[j].sVolumeName)==0)
       // 	ntVertexLXe->Fill(event->vertices[j].fPosition_mm.X(),event->vertices[j].fPosition_mm.Y(),event->vertices[j].fPosition_mm.Z(),event->vertices[j].fEnergyDep_keV,event->vertices[j].fTime_ns,event->vertices[j].iS1Quanta,event->vertices[j].iS2Quanta);
       // if (VolumeName[2].compare(event->vertices[j].sVolumeName)==0)
@@ -174,19 +174,18 @@ int main(int argc, char *arg[]){
       // if (ParticleName[1].compare(event->vertices[j].sParticleName)==0)
       // 	ntVertexe->Fill(event->vertices[j].fPosition_mm.X(),event->vertices[j].fPosition_mm.Y(),event->vertices[j].fPosition_mm.Z(),event->vertices[j].fEnergyDep_keV,event->vertices[j].fTime_ns,event->vertices[j].iS1Quanta,event->vertices[j].iS2Quanta);
       // if (ParticleName[2].compare(event->vertices[j].sParticleName)==0)
-      //	ntVertexgamma->Fill(event->vertices[j].fPosition_mm.X(),event->vertices[j].fPosition_mm.Y(),event->vertices[j].fPosition_mm.Z(),event->vertices[j].fEnergyDep_keV,event->vertices[j].fTime_ns,event->vertices[j].iS1Quanta,event->vertices[j].iS2Quanta);
+      // 	ntVertexgamma->Fill(event->vertices[j].fPosition_mm.X(),event->vertices[j].fPosition_mm.Y(),event->vertices[j].fPosition_mm.Z(),event->vertices[j].fEnergyDep_keV,event->vertices[j].fTime_ns,event->vertices[j].iS1Quanta,event->vertices[j].iS2Quanta);
 
 
-      //      ntVertex->Fill(event->vertices[j].fPosition_mm.X(),event->vertices[j].fPosition_mm.Y(),event->vertices[j].fPosition_mm.Z(),event->vertices[j].fEnergyDep_keV,event->vertices[j].fTime_ns,event->vertices[j].iS1Quanta,event->vertices[j].iS2Quanta);
-      cout<<"here"<<endl;
-      if (VolumeName[6].compare(event->vertices[j].sVolumeName)==0)
-       	continue;
-       if (VolumeName[7].compare(event->vertices[j].sVolumeName)==0)
-       	continue;
+      ntVertex->Fill(event->vertices[j].fPosition_mm.X(),event->vertices[j].fPosition_mm.Y(),event->vertices[j].fPosition_mm.Z(),event->vertices[j].fEnergyDep_keV,event->vertices[j].fTime_ns,event->vertices[j].iS1Quanta,event->vertices[j].iS2Quanta);
+      // if (VolumeName[6].compare(event->vertices[j].sVolumeName)==0)
+      //  	continue;
+      //  if (VolumeName[7].compare(event->vertices[j].sVolumeName)==0)
+      //  	continue;
 
       ntVertexNSB->Fill(event->vertices[j].fPosition_mm.X(),event->vertices[j].fPosition_mm.Y(),event->vertices[j].fPosition_mm.Z(),event->vertices[j].fEnergyDep_keV,event->vertices[j].fTime_ns,event->vertices[j].iS1Quanta,event->vertices[j].iS2Quanta);
-    }
-
+    }//loop over nvertex
+      
     if (event_energy>100){
       for (int k=0;k<nvertex;k++){
 	for (int j=0;j<nvertex;j++){

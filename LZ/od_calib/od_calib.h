@@ -100,11 +100,12 @@ class od_calib : public TSelector {
 
 
 
-  float first_event_time=0;
-  float final_event_time=0;
-  float first_event_time_ns=0;
-  float final_event_time_ns=0;
+  double first_event_time=0;
+  double final_event_time=0;
+  double first_event_time_ns=0;
+  double final_event_time_ns=0;
   int lastentry=0;
+  int nentries=0;
 
   virtual ~od_calib() { }
   virtual Int_t   Version() const { return 2; }
@@ -200,10 +201,40 @@ void od_calib::LoadDetectorPulsesBranches(TString detectorName, MyDetectorPulses
   fChain->SetBranchAddress("pulses"+detString+".pulseEndTime_ns", &det.pulseEndTime);
   fChain->SetBranchStatus( "pulses"+detString+".pulseArea_phd", 1);
   fChain->SetBranchAddress("pulses"+detString+".pulseArea_phd", &det.pulseArea);
-  fChain->SetBranchStatus( "pulses"+detString+".topArea_phd", 1);
-  fChain->SetBranchAddress("pulses"+detString+".topArea_phd", &det.pulseAreaTop);
-  fChain->SetBranchStatus( "pulses"+detString+".bottomArea_phd", 1);
-  fChain->SetBranchAddress("pulses"+detString+".bottomArea_phd", &det.pulseAreaBot);
+  if (detString.Contains("TPC")) {
+    fChain->SetBranchStatus( "pulses"+detString+".topArea_phd", 1);
+    fChain->SetBranchAddress("pulses"+detString+".topArea_phd", &det.pulseAreaTop);
+    fChain->SetBranchStatus( "pulses"+detString+".bottomArea_phd", 1);
+    fChain->SetBranchAddress("pulses"+detString+".bottomArea_phd", &det.pulseAreaBot);
+    fChain->SetBranchStatus( "pulses"+detString+".topBottomAsymmetry", 1);
+    fChain->SetBranchAddress("pulses"+detString+".topBottomAsymmetry", &det.tba);
+    fChain->SetBranchStatus( "pulses"+detString+".pulseArea200ns_phd", 1);
+    fChain->SetBranchAddress("pulses"+detString+".pulseArea200ns_phd", &det.pulseArea200ns);
+    fChain->SetBranchStatus( "pulses"+detString+".s1Probability", 1);
+    fChain->SetBranchAddress("pulses"+detString+".s1Probability", &det.s1prob);
+    fChain->SetBranchStatus( "pulses"+detString+".s2Probability", 1);
+    fChain->SetBranchAddress("pulses"+detString+".s2Probability", &det.s2prob);
+    fChain->SetBranchStatus( "pulses"+detString+".singlePEprobability", 1);
+    fChain->SetBranchAddress("pulses"+detString+".singlePEprobability", &det.speProb);
+    fChain->SetBranchStatus( "pulses"+detString+".multiplePEprobability", 1);
+    fChain->SetBranchAddress("pulses"+detString+".multiplePEprobability", &det.mpeProb);
+    fChain->SetBranchStatus( "pulses"+detString+".singleElectronProbability", 1);
+    fChain->SetBranchAddress("pulses"+detString+".singleElectronProbability", &det.seProb);
+    fChain->SetBranchStatus( "pulses"+detString+".otherProbability", 1);
+    fChain->SetBranchAddress("pulses"+detString+".otherProbability", &det.otherProb);
+    fChain->SetBranchStatus( "pulses"+detString+".otherS2Probability", 1);
+    fChain->SetBranchAddress("pulses"+detString+".otherS2Probability", &det.otherS2prob);
+    fChain->SetBranchStatus( "pulses"+detString+".s2Xposition_cm", 1);
+    fChain->SetBranchAddress("pulses"+detString+".s2Xposition_cm", &det.xPos);
+    fChain->SetBranchStatus( "pulses"+detString+".s2Yposition_cm", 1);
+    fChain->SetBranchAddress("pulses"+detString+".s2Yposition_cm", &det.yPos);
+    fChain->SetBranchStatus( "pulses"+detString+".HGLGpulseID", 1);
+    fChain->SetBranchAddress("pulses"+detString+".HGLGpulseID", &det.HGLGpulseID);
+    fChain->SetBranchStatus( "pulses"+detString+".photonCount", 1);
+    fChain->SetBranchAddress("pulses"+detString+".photonCount", &det.photonCount);
+    }
+
+
   fChain->SetBranchStatus( "pulses"+detString+".peakAmp", 1);
   fChain->SetBranchAddress("pulses"+detString+".peakAmp", &det.peakAmp);
   fChain->SetBranchStatus( "pulses"+detString+".peakTime_ns", 1);
@@ -222,38 +253,14 @@ void od_calib::LoadDetectorPulsesBranches(TString detectorName, MyDetectorPulses
   fChain->SetBranchAddress("pulses"+detString+".areaFractionTime95_ns", &det.aft95);
   fChain->SetBranchStatus( "pulses"+detString+".areaFractionTime99_ns", 1);
   fChain->SetBranchAddress("pulses"+detString+".areaFractionTime99_ns", &det.aft99);
-  fChain->SetBranchStatus( "pulses"+detString+".topBottomAsymmetry", 1);
-  fChain->SetBranchAddress("pulses"+detString+".topBottomAsymmetry", &det.tba);
   fChain->SetBranchStatus( "pulses"+detString+".promptFraction50ns", 1);
   fChain->SetBranchAddress("pulses"+detString+".promptFraction50ns", &det.promptFrac50ns);
-  fChain->SetBranchStatus( "pulses"+detString+".pulseArea200ns_phd", 1);
-  fChain->SetBranchAddress("pulses"+detString+".pulseArea200ns_phd", &det.pulseArea200ns);
   fChain->SetBranchStatus( "pulses"+detString+".rmsWidth_ns", 1);
   fChain->SetBranchAddress("pulses"+detString+".rmsWidth_ns", &det.rmsWidth);
   fChain->SetBranchStatus( "pulses"+detString+".coincidence", 1);
   fChain->SetBranchAddress("pulses"+detString+".coincidence", &det.coincidence);
-  fChain->SetBranchStatus( "pulses"+detString+".s1Probability", 1);
-  fChain->SetBranchAddress("pulses"+detString+".s1Probability", &det.s1prob);
-  fChain->SetBranchStatus( "pulses"+detString+".s2Probability", 1);
-  fChain->SetBranchAddress("pulses"+detString+".s2Probability", &det.s2prob);
-  fChain->SetBranchStatus( "pulses"+detString+".singlePEprobability", 1);
-  fChain->SetBranchAddress("pulses"+detString+".singlePEprobability", &det.speProb);
-  fChain->SetBranchStatus( "pulses"+detString+".multiplePEprobability", 1);
-  fChain->SetBranchAddress("pulses"+detString+".multiplePEprobability", &det.mpeProb);
-  fChain->SetBranchStatus( "pulses"+detString+".singleElectronProbability", 1);
-  fChain->SetBranchAddress("pulses"+detString+".singleElectronProbability", &det.seProb);
-  fChain->SetBranchStatus( "pulses"+detString+".otherProbability", 1);
-  fChain->SetBranchAddress("pulses"+detString+".otherProbability", &det.otherProb);
-  fChain->SetBranchStatus( "pulses"+detString+".otherS2Probability", 1);
-  fChain->SetBranchAddress("pulses"+detString+".otherS2Probability", &det.otherS2prob);
   fChain->SetBranchStatus( "pulses"+detString+".saturated", 1);
   fChain->SetBranchAddress("pulses"+detString+".saturated", &det.saturated);
-  fChain->SetBranchStatus( "pulses"+detString+".s2Xposition_cm", 1);
-  fChain->SetBranchAddress("pulses"+detString+".s2Xposition_cm", &det.xPos);
-  fChain->SetBranchStatus( "pulses"+detString+".s2Yposition_cm", 1);
-  fChain->SetBranchAddress("pulses"+detString+".s2Yposition_cm", &det.yPos);
-  fChain->SetBranchStatus( "pulses"+detString+".HGLGpulseID", 1);
-  fChain->SetBranchAddress("pulses"+detString+".HGLGpulseID", &det.HGLGpulseID);
   fChain->SetBranchStatus( "pulses"+detString+".chSaturated", 1);
   fChain->SetBranchAddress("pulses"+detString+".chSaturated", &det.chSaturated);
   fChain->SetBranchStatus( "pulses"+detString+".chPulseArea_phd", 1);
@@ -264,8 +271,6 @@ void od_calib::LoadDetectorPulsesBranches(TString detectorName, MyDetectorPulses
   fChain->SetBranchAddress("pulses"+detString+".chPeakTime_ns", &det.chPeakTime);
   fChain->SetBranchStatus( "pulses"+detString+".chID", 1);
   fChain->SetBranchAddress("pulses"+detString+".chID", &det.chID);
-  fChain->SetBranchStatus( "pulses"+detString+".photonCount", 1);
-  fChain->SetBranchAddress("pulses"+detString+".photonCount", &det.photonCount);
 
   
 }

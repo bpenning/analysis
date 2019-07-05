@@ -7,6 +7,7 @@
 #include <TFile.h>
 
 #include <iostream>
+#include <numeric>
 
 using namespace std;
 
@@ -301,9 +302,10 @@ Bool_t od_calib::Process(Long64_t entry)
   //if (entry < 50000) return kTRUE;
 
   GetEntry(entry);
-  if (entry%20000==0) cout << "Processing "<<entry<<endl;
+  //  if (entry%100==0) cout << "Processing "<<entry<<endl;
+  if (nentries%10==0) cout << "Processing "<<nentries<<endl;
   //cout << entry << endl;
-
+  nentries++;
   //----------------------------------
   // Build derived RQs from input RQs
   deriveDetRQs(e, e.tpcHG, e.tpc);
@@ -348,13 +350,14 @@ Bool_t od_calib::Process(Long64_t entry)
     h2_all_subS2maxS2ratio_h2w->Fill(e.tpc.subS2pulses[0].first/e.tpc.maxS2area, e.tpc.height2length[e.tpc.subS2pulses[0].second]);
   }
 
-
   //other variables
-  if (entry==0) {
+  if (e.trgTime_ns<first_event_time_ns || first_event_time_ns==0 ) {
+    std::cout<<"first " <<e.trgTime_ns<< " was "<<first_event_time_ns<<endl;
     first_event_time=e.trgTime_s;
     first_event_time_ns=e.trgTime_ns;
   }
-  else{
+  if(e.trgTime_ns>final_event_time_ns || final_event_time_ns==0){
+    std::cout<<"final " <<e.trgTime_ns<< " was "<<final_event_time_ns<<endl;
     final_event_time=e.trgTime_s;
     final_event_time_ns=e.trgTime_ns;
   }
@@ -504,9 +507,24 @@ Bool_t od_calib::Process(Long64_t entry)
 //________________________________________________________
 void od_calib::SlaveTerminate()
 {
-  std::cout<<"first event "<<first_event_time<<" last " << final_event_time<<" "<<float(final_event_time_ns-first_event_time_ns)/(1000000*lastentry)<<endl;
-  
+  //  std::cout<<"first event "<<first_event_time<<" last " << final_event_time<<" "<<float(final_event_time_ns-first_event_time_ns)/(1000000*lastentry)<<endl;
+  std::cout<<"ns: first event "<<first_event_time<<" last " << final_event_time<<" "<<float(final_event_time_ns-first_event_time_ns)/(1000000*nentries)<<endl;
+  //  std::cout<<"sec: first event "<<first_event_time<<" last " << final_event_time<<" "<<float(final_event_time-first_event_time)/(lastentry)<<". rate: "<<lastentry/(float(final_event_time-first_event_time)) <<std::endl;
+  std::cout<<"rate: " <<(1000000*nentries)/float(final_event_time_ns-first_event_time_ns)<<std::endl;
+  std::cout<<nentries<<std::endl;
   h1_rate->SetBinContent(3,float(final_event_time_ns-first_event_time_ns)/(1000000*lastentry));
+
+  // int nEvents = events->GetEntries();
+  
+  // events->GetEntry(0);
+  // ulong start = triggerTimestamp_s*1E9 + triggerTimestamp_ns;
+  // events->GetEntry(nEvents-1);
+  // ulong end = triggerTimestamp_s*1E9 + triggerTimestamp_ns;
+
+  // livetime_ns = end - start;
+  // livetime_s = (end - start)/1E9;
+  
+
 }
 
 //________________________________________________________
